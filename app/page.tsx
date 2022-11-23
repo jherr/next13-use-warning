@@ -19,21 +19,16 @@ function makeQueryClient() {
 
 const queryClient = makeQueryClient();
 
-const baseURL = 'https://rohanbagchi-orange-space-train-7w6xrqp7pvfrg-3000.preview.app.github.dev/';
-
 export default function Home() {
   const pokemon = use(
     queryClient<Pokemon[]>(
       "pokemon",
       () =>
-        fetch(`${baseURL}/api/pokemon`).then((res) =>
+        fetch("http://localhost:3000/api/pokemon").then((res) =>
           res.json()
         )
     )
   );
-
-  // return <pre>{JSON.stringify(pokemon, null, 2)}</pre>
-
 
   const [selectedPokemon, setSelectedPokemon] = useState<Pokemon>();
 
@@ -42,7 +37,7 @@ export default function Home() {
         queryClient<Pokemon>(
           ["pokemon", selectedPokemon.id].join("-"),
           () =>
-            fetch(`${baseURL}/api/${selectedPokemon.id}`).then(
+            fetch(`http://localhost:3000/api/${selectedPokemon.id}`).then(
               (res) => res.json()
             )
         )
