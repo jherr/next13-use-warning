@@ -21,12 +21,12 @@ const queryClient = makeQueryClient();
 
 export default function Home() {
   const pokemon = use(
-    queryClient(
+    queryClient<Pokemon[]>(
       "pokemon",
       () =>
         fetch("http://localhost:3000/api/pokemon").then((res) =>
           res.json()
-        ) as Promise<Pokemon[]>
+        )
     )
   );
 
