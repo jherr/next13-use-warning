@@ -21,12 +21,12 @@ const queryClient = makeQueryClient();
 
 export default function Home() {
   const pokemon = use(
-    queryClient(
+    queryClient<Pokemon[]>(
       "pokemon",
       () =>
         fetch("http://localhost:3000/api/pokemon").then((res) =>
           res.json()
-        ) as Promise<Pokemon[]>
+        )
     )
   );
 
@@ -34,12 +34,12 @@ export default function Home() {
 
   const pokemonDetail = selectedPokemon
     ? use(
-        queryClient(
+        queryClient<Pokemon>(
           ["pokemon", selectedPokemon.id].join("-"),
           () =>
             fetch(`http://localhost:3000/api/${selectedPokemon.id}`).then(
               (res) => res.json()
-            ) as Promise<Pokemon>
+            )
         )
       )
     : null;
